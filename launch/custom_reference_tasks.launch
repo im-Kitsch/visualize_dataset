@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="gaze" default="true"/>
+  <arg name="source_data_arm" default="topic_reflexx_typeII"/>
+  <arg name="source_data_gaze" default="topic"/>   <!-- interactive_marker or topic -->
+
+  <group if="$(arg gaze)">
+  	<node name="push_gaze_task" pkg="pal_wbc_utils" type="push_interactive_marker_gaze_task" output="screen">
+        <param name="source_data" value="$(arg source_data_gaze)" />
+	<param name="camera_frame" value="xtion_optical_frame" />
+  	</node>
+  </group>
+
+  <node name="push_pose_task_left" pkg="pal_wbc_utils" type="push_interactive_marker_pose_task">
+  	<param name="source_data" value="$(arg source_data_arm)" />
+    	<param name="tip_name" value="arm_left_tool_link" />
+<!--     <param name="reference_frame" value="arm_left_1_link" /> -->
+  </node>
+
+    <node name="push_pose_task_left_4" pkg="pal_wbc_utils" type="push_interactive_marker_pose_task">
+    	<param name="source_data" value="$(arg source_data_arm)" />
+      	<param name="tip_name" value="arm_left_4_link" />
+  <!--     <param name="reference_frame" value="arm_left_1_link" /> -->
+    </node>
+
+<!--   <node name="push_pose_task_left" pkg="pal_wbc_utils" type="push_interactive_marker_pose_task"> -->
+<!--   	<param name="source_data" value="$(arg source_data_arm)" /> -->
+<!--     <param name="tip_name" value="arm_left_tool_link" /> -->
+<!--   </node> -->
+
+  <node name="push_torso_task" pkg="pal_wbc_utils" type="push_interactive_marker_pose_task">
+  	<param name="source_data" value="$(arg source_data_arm)" />
+    <param name="tip_name" value="torso_lift_link" />
+  </node>
+
+</launch>
