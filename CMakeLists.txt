@@ -28,7 +28,11 @@ include_directories(
         ${catkin_INCLUDE_DIRS}
 )
 
-catkin_install_python(PROGRAMS scripts/talker.py scripts/listener.py
+catkin_install_python(
+        PROGRAMS 
+        scripts/upper_body_visualization.py
+        # scripts/talker.py 
+        # scripts/listener.py
         DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
         )
 
