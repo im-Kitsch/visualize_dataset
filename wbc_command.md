@@ -2,7 +2,7 @@
 
 - ` bash /home/pro_mp/catkin_ws/src/visualize_dataset/launch/launch_wbc.sh`
 - `roslaunch visualize_dataset visualize_data.launch`
-- `rosrun visualize_dataset wbc_motion_transfer.py`
+- `rosbag play handshake_filtered.bag -r 0.3 --pause`
 - `rosrun visualize_dataset wbc_motion_transfer.py`
 
 # WBC Test Thing
