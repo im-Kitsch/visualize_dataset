@@ -26,6 +26,9 @@ class WbcMapping:
         self.arm_right_tool_link_pub = rospy.Publisher(
             '/whole_body_kinematic_controller/arm_right_tool_link_goal',
             geometry_msgs.msg.PoseStamped, queue_size=10)
+        self.torso_lift_link_pub = rospy.Publisher(
+            '/whole_body_kinematic_controller/torso_lift_link_goal',
+            geometry_msgs.msg.PoseStamped, queue_size=10)
 
         self.tf_listener = tf.TransformListener()
         self.tf_pub = tf.TransformBroadcaster()
@@ -115,8 +118,15 @@ class WbcMapping:
         arm_pose.pose.position = geometry_msgs.msg.Point(*tr_arm)
         arm_pose.pose.orientation = geometry_msgs.msg.Quaternion(*q_r_hand)
 
+        torso_pose = geometry_msgs.msg.PoseStamped()
+        torso_pose.header.frame_id = 'base_footprint'
+        torso_pose.header.stamp = rospy.Time.now()
+        torso_pose.pose.position = geometry_msgs.msg.Point(-0.062, 0., 1.079)
+        torso_pose.pose.orientation = geometry_msgs.msg.Quaternion(0., 0., 0., 1.)
+
         self.arm_right_tool_link_pub.publish(arm_pose)
         self.arm_right_4_link_pub.publish(forearm_pose)
+        self.torso_lift_link_pub.publish(torso_pose)
         return
 
     def __publish_cmd(self, tr_forearm, tr_arm):
